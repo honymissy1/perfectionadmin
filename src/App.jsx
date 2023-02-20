@@ -165,7 +165,7 @@ const handleLogout = () =>{
                   <div className="flex-1 p-10">
                     <h1 className="text-xl text-center">Login to your account to use </h1>
                     <img src={Images} alt="Login" />
-                    <button onClick={handleButton} class="inline-flex text-white bg-red-500 border-0 my-4 py-1 px-3 focus:outline-none hover:bg-red-600 rounded text-sm">
+                    <button onClick={handleButton} style={{margin: '0px auto'}} class="inline-flex text-white bg-red-500 border-0 my-4 py-1 px-3 focus:outline-none hover:bg-red-600 rounded text-md">
                       Login
                     </button>
                   </div>

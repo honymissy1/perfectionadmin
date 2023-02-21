@@ -32,13 +32,11 @@ function App() {
       payment_options: "card, banktransfer, ussd",
       redirect_url: "https://perfectionserver.vercel.app/payment",
       meta: {
-        consumer_id: 'honymissyowolewa1@gmail.com',
+        consumer_id: email,
         consumer_mac: "92a3-912ba-1192a",
       },
       customer: {
-        email: "honymissyowolewa1@gmail.com",
-        phone_number: "+2348155550465",
-        name: "Onimisi Owolewa Bamidele",
+        email: email,
       },
 
       customizations: {

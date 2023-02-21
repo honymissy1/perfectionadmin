@@ -19,11 +19,21 @@ function App() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const [amount, setAmount] = useState(null)
+  const [amount, setAmount] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  const [error, setError] = useState('')
 
   // Make Payment function
   function makePayment(e){
     e.preventDefault()
+    setLoading(true);
+
+    setTimeout(() =>{
+      setLoading(false);
+      setError('Problem making payment at the moment check you internet connection ')
+    }, 7000)
+
     FlutterwaveCheckout({
       public_key: "FLWPUBK_TEST-1a77c9626f9ed7c7af67eec75e44ac7b-X",
       tx_ref: uuidv4(),
@@ -67,9 +77,10 @@ function App() {
     console.log(result);
 
     if(result.message === 'success'){
-      UserLogin.setLogin(email, result.accountBalance);
+      UserLogin.setLogin(result.response.email, result.accountBalance);
       localStorage.setItem('user', JSON.stringify({email: result.response.email, accountBalance: result.response.accountBalance}))
       setMoney(result.response.accountBalance);
+      setEmail(result.response.email)
       modal.classList.remove('display');
     }else{
       console.log('Not going to login');
@@ -106,6 +117,9 @@ function App() {
         fetch(`https://perfectionserver.vercel.app/updateaccount`, {
           method: 'post',
           headers: { 'Content-Type':'application/json' },
+          body: JSON.stringify({
+            email: email
+          })
         }).then(result => result.json())
         .then(response =>{
           setMoney(response.accountBalance)
@@ -137,10 +151,15 @@ const handleLogout = () =>{
   UserLogin.setLogout()
   localStorage.removeItem('user')
 }
+
   return (
     <>
       <nav className="gap-20 bg-black flex center p-7 justify-between items-center border-b-2 flex-wrap">
-        <h1 className="text-3xl font-bold text-white">Perfection</h1>
+        <div className="flex" style={{alignItems: 'center'}}>
+        <img src={Image} alt="" width={100}/>
+          <h1 className="text-3xl font-bold text-white">Perfection</h1>
+
+        </div>
 
         {/* Fetch from the server */}
         {
@@ -180,7 +199,7 @@ const handleLogout = () =>{
                     <input onChange={(e) => setAmount(e.target.value)} value={amount} type="number" id="amount" name="amount" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
                 </div>
              <button onClick={makePayment} class="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
-                Buy
+               {loading? 'Loading': 'Buy'} 
             </button>
             </form>
             </div>

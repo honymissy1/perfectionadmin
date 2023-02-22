@@ -55,7 +55,6 @@ function App() {
         logo: Image,
       },
 
-
     });
   }
 
@@ -88,20 +87,44 @@ function App() {
   }
 
   useEffect(() =>{
-
-    // localStorage.setItem('user', JSON.stringify({email: result.response.email, accountBalance: result.response.accountBalance}))
+    const userSet = async () =>{
     if(localStorage.getItem('user') === null){
       return;
     }
+
+    let localItem = await JSON.parse(localStorage.getItem('user'));
+     console.log(localItem);
+    const fetchUser = fetch(`https://perfectionserver.vercel.app/admins`, {
+      method: 'post',
+      headers: {
+         'Content-Type':'application/json'
+      },
+      body: JSON.stringify({
+        email: localItem.email
+      })
+    });
+
+     const result = await (await fetchUser).json()
+     console.log(result);
     
-    let localItem = JSON.parse(localStorage.getItem('user'));
-    console.log(localItem);
-    
-    setMoney(localItem.accountBalance)
-    setEmail(localItem.email)
-    // setLogin(UserLogin.loginState.accountBalance);
+    setMoney(result.accountBalance)
+    setEmail(result.email)
+   }
+   userSet()
   }, [])
 
+  useEffect(() =>{
+    const getUser = async () =>{
+     
+
+
+
+    }
+
+    getUser()
+  }, [])
+  
+  console.log(money, email);
   const activateUser = async(e) =>{
     e.preventDefault();
 
@@ -201,6 +224,7 @@ const handleLogout = () =>{
              <button onClick={makePayment} class="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
                {loading? 'Loading': 'Buy'} 
             </button>
+            <p style={{width: '250px', color: 'red', padding: '20px 0px'}}>{error}</p>
             </form>
             </div>
 

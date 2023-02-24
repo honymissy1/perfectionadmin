@@ -36,7 +36,7 @@ function App() {
     }, 7000)
 
     FlutterwaveCheckout({
-      public_key: "FLWPUBK_TEST-1a77c9626f9ed7c7af67eec75e44ac7b-X",
+      public_key: "FLWPUBK_TEST-edcf63b372f8cb290127aa8c11f9f2f3-X",
       tx_ref: uuidv4(),
       amount: amount,
       currency: "NGN",

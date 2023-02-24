@@ -11,18 +11,19 @@ function App() {
 
   const UserLogin = useContext(User)
 
-
+  // React States
   const [login, setLogin] = useState({})
   const [money, setMoney] = useState(0);
   const [userId, setUserId] = useState('');
   const [data, setData] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
   const [amount, setAmount] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const [error, setError] = useState('')
+  // Errors
+  const [error, setError] = useState('');
+  const [loginError, setLoginError] = useState('')
 
   // Make Payment function
   function makePayment(e){
@@ -39,7 +40,7 @@ function App() {
       tx_ref: uuidv4(),
       amount: amount,
       currency: "NGN",
-      payment_options: "card, banktransfer, ussd",
+      payment_options: "card",
       redirect_url: "https://perfectionserver.vercel.app/payment",
       meta: {
         consumer_id: email,
@@ -72,8 +73,6 @@ function App() {
     });
 
     const result = await fetcher.json();
-
-    console.log(result);
 
     if(result.message === 'success'){
       UserLogin.setLogin(result.response.email, result.accountBalance);
@@ -113,18 +112,7 @@ function App() {
    userSet()
   }, [])
 
-  useEffect(() =>{
-    const getUser = async () =>{
-     
-
-
-
-    }
-
-    getUser()
-  }, [])
   
-  console.log(money, email);
   const activateUser = async(e) =>{
     e.preventDefault();
 
@@ -162,7 +150,6 @@ function App() {
 
   const handleClick = (e) =>{
     e.target.classList.remove('display');   
-    console.log(e.target);
 }
 
 const handleButton = (e) =>{
@@ -278,11 +265,6 @@ const handleLogout = () =>{
         </div>)
 
         }
-
-        
-
-
-
         <div className="bg-green-300 flex-1 hidden md:block" style={{height: '100vh', minWidth: '500px'}}>
           <section class="text-gray-600 body-font">
             <div class="container px-5 py-24 mx-auto">
@@ -308,11 +290,8 @@ const handleLogout = () =>{
               </div>
             </div>
           </section> 
-        </div>
-        
+        </div> 
       </main>
-
-
 
       {/* Modal */}
       <div onClick={handleClick} className="overlay">

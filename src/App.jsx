@@ -64,7 +64,7 @@ function App() {
   const modal = document.querySelector('.overlay')
 
   const handleLogin = async () =>{
-    const fetcher = await fetch(`https://perfectionserver.vercel.app/adminsignin`, {
+    const fetcher = await fetch(`http://localhost:8080/adminsignin`, {
       method: 'post', 
       headers: { 'Content-Type': 'application/json'},
       body: JSON.stringify({
@@ -82,6 +82,7 @@ function App() {
       setEmail(result.response.email)
       modal.classList.remove('display');
     }else{
+      alert('Incorrect Username/Password')
       console.log('Not going to login');
     }
   }
@@ -205,9 +206,6 @@ const handleLogout = () =>{
                   <div className="flex-1 p-10">
                     <h1 className="text-xl text-center">Login to your account to use </h1>
                     <img src={Images} alt="Login" />
-                    <button onClick={handleButton} style={{margin: '0px auto', textAlign: 'center'}} class="inline-flex text-white bg-red-500 border-0 my-4 py-1 px-3 focus:outline-none hover:bg-red-600 rounded text-md">
-                      Login
-                    </button>
                   </div>
         
       ):(<div  style={{width:'100%', minWidth: '300px'}}>

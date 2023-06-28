@@ -4,6 +4,7 @@ import Image from './assets/logo.png';
 import User from "./context/user";
 import { useContext } from "react";
 import Images from './assets/login.jpg'
+import Home from "./components/home";
 // import LoginModal from "./loginModal";
 
 
@@ -164,15 +165,14 @@ const handleLogout = () =>{
 
   return (
     <>
-      <nav className="gap-20 bg-black flex center p-7 justify-between items-center border-b-2 flex-wrap">
+      <nav style={{width: '100%'}} className="gap-10 bg-black flex center p-2 justify-between items-center flex-wrap">
         <div className="flex" style={{alignItems: 'center'}}>
-        <img src={Image} alt="" width={100}/>
+        <img src={Image} alt="" width={70}/>
           <h1 className="text-3xl font-bold text-white">Perfection</h1>
 
         </div>
 
-        {/* Fetch from the server */}
-        {
+        {/* {
           UserLogin.loginState ? (<div className="text-white">
           <p>{email}</p>
           <p className="text-green-600 font-bold"><span className="text-white font-normal">Current Balance: </span>&#8358;{money}</p>
@@ -182,6 +182,19 @@ const handleLogout = () =>{
         </div>) : (<button onClick={handleButton} class="inline-flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg">
             Login
         </button>)
+        } */}
+
+        {
+
+        UserLogin.loginState ? (<div className="text-white">
+        {/* <p className="text-green-600 font-bold"><span className="text-white font-normal">Current Balance: </span>&#8358;{money}</p> */}
+        <button onClick={handleLogout} class="inline-flex text-white bg-red-500 border-0 py-2 px-2 focus:outline-none hover:bg-red-600 rounded text-sm">
+            Logout
+        </button>
+        </div>) : (<button onClick={handleButton} class="inline-flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg">
+          Login
+        </button>)
+
         }
 
       </nav>
@@ -197,75 +210,13 @@ const handleLogout = () =>{
                     </button>
                   </div>
         
-      ):(       <div>
-        {
-          UserLogin.loginState && money < 1000 ? (
-            <div className="flex-1 p-10">
-            <h1 className="text-2xl font-bold mb-3 text-gray-700 font-ubuntu">Buy More <span className="text-red-400">MOP Manual</span> Credit</h1>
-            <div>
-              <form action="">
-                <div class="relative mb-4">
-                    <label for="amount" class="leading-7 text-sm text-gray-600">Amount</label>
-                    <input onChange={(e) => setAmount(e.target.value)} value={amount} type="number" id="amount" name="amount" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
-                </div>
-             <button onClick={makePayment} class="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
-               {loading? 'Loading': 'Buy'} 
-            </button>
-            <p style={{width: '250px', color: 'red', padding: '20px 0px'}}>{error}</p>
-            </form>
-            </div>
+      ):(<div  style={{width:'100%', minWidth: '300px'}}>
+          <Home />
 
-
-
-          </div>
-          ) :
-          (
-            <div className="flex-1 p-10">
-          <h1 className="text-2xl font-bold mb-3 text-gray-500">Unlock Manual</h1>
-          <form action="">
-                <div class="relative mb-4">
-                    <label for="amount" class="leading-7 text-sm text-gray-600">Activate User</label>
-                    <input type="telephone" id="amount" onChange={(e) => setUserId(e.target.value)} value={userId} name="amount"
-                     class="w-full bg-white rounded border border-gray-300
-                      focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200
-                       text-base outline-none text-gray-700 py-1 px-3 leading-8 
-                       transition-colors duration-200 ease-in-out" />
-                </div>
-             <button onClick={activateUser}  class="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
-                Activate User
-            </button>
-            </form>
-
-            {
-              !data && ('')
-            }
-
-            {
-               data === 'User Account Already Created'  && (
-                <div className="text-white w-full mt-4 bg-red-500" style={{
-                  borderRadius:'5px',
-                  boxShadow: '.5px .5px 2px black'}}>
-                 <h1 className="p-5">{data}</h1>
-                </div>
-               )
-            }
-
-            {
-              data === 'User Successfully Activated' && (
-                <div className="text-white w-full mt-4 bg-green-500" style={{borderRadius:'5px', boxShadow: '.5px .5px 2px black'}}>
-                <h1 className="p-5">{data}</h1>
-              </div>
-              )
-            }
-
-
-
-        </div>)
-        }
         </div>)
 
         }
-        <div className="bg-green-300 flex-1 hidden md:block" style={{height: '100vh', minWidth: '500px'}}>
+        <div className="bg-green-300 flex-1 hidden md:block" style={{height: '100vh', minWidth: '500px', maxWidth:'550px'}}>
           <section class="text-gray-600 body-font">
             <div class="container px-5 py-24 mx-auto">
               <h1 class="text-3xl font-medium title-font text-gray-900 mb-12 text-center">Vision</h1>

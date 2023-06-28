@@ -4,7 +4,8 @@ const Home = () =>{
     const [total, setTotal] = useState(0);
     const [custom, setCustom] = useState(0);
     const [result, setResult] = useState(null);
-    const [error, setError] = useState('')
+    const [error, setError] = useState('');
+    const [password, setChangePassword] = useState(false)
 
 
 
@@ -51,7 +52,8 @@ const Home = () =>{
 
         if(pass.status === 200){
           console.log(data);
-          alert('Password Updated Successfully')
+          alert('Password Updated Successfully');
+          password(false)
 
         }else{
           alert('Error Updating Password')
@@ -80,6 +82,10 @@ const Home = () =>{
       
 
     }
+
+    const handleChangePass = () =>{
+      setChangePassword(!password)
+    }
     return(
         <>
  <div class="border-b border-gray-200 dark:border-gray-700">
@@ -87,19 +93,19 @@ const Home = () =>{
     <button type="button" class="hs-tab-active:bg-white hs-tab-active:border-b-transparent hs-tab-active:text-blue-600 dark:hs-tab-active:bg-gray-800 dark:hs-tab-active:border-b-gray-800 dark:hs-tab-active:text-white -mb-px py-3 px-4 inline-flex items-center gap-2 bg-gray-50 text-sm font-medium text-center border text-gray-500 rounded-t-lg hover:text-gray-700 dark:bg-gray-700 dark:border-gray-700 dark:text-gray-400 active" id="card-type-tab-item-1" data-hs-tab="#card-type-tab-1" aria-controls="card-type-tab-1" role="tab">
       Total Purchase
     </button>
-    <button type="button" class="hs-tab-active:bg-white hs-tab-active:border-b-transparent hs-tab-active:text-blue-600 dark:hs-tab-active:bg-gray-800 dark:hs-tab-active:border-b-gray-800 dark:hs-tab-active:text-white -mb-px py-3 px-4 inline-flex items-center gap-2 bg-gray-50 text-sm font-medium text-center border text-gray-500 rounded-t-lg hover:text-gray-700 dark:bg-gray-700 dark:border-gray-700 dark:text-gray-400 dark:hover:text-gray-300" id="card-type-tab-item-2" data-hs-tab="#card-type-tab-2" aria-controls="card-type-tab-2" role="tab">
+    {/* <button type="button" class="hs-tab-active:bg-white hs-tab-active:border-b-transparent hs-tab-active:text-blue-600 dark:hs-tab-active:bg-gray-800 dark:hs-tab-active:border-b-gray-800 dark:hs-tab-active:text-white -mb-px py-3 px-4 inline-flex items-center gap-2 bg-gray-50 text-sm font-medium text-center border text-gray-500 rounded-t-lg hover:text-gray-700 dark:bg-gray-700 dark:border-gray-700 dark:text-gray-400 dark:hover:text-gray-300" id="card-type-tab-item-2" data-hs-tab="#card-type-tab-2" aria-controls="card-type-tab-2" role="tab">
       Custom Report
     </button>
 
     <button type="button" class="hs-tab-active:bg-white hs-tab-active:border-b-transparent hs-tab-active:text-blue-600 dark:hs-tab-active:bg-gray-800 dark:hs-tab-active:border-b-gray-800 dark:hs-tab-active:text-white -mb-px py-3 px-4 inline-flex items-center gap-2 bg-gray-50 text-sm font-medium text-center border text-gray-500 rounded-t-lg hover:text-gray-700 dark:bg-gray-700 dark:border-gray-700 dark:text-gray-400 dark:hover:text-gray-300" id="card-type-tab-item-3" data-hs-tab="#card-type-tab-3" aria-controls="card-type-tab-3" role="tab">
      Settings
-    </button>
+    </button> */}
 
   </nav>
 </div>
 
 <div class="mt-3" style={{ width:'100%'}}>
-  <div className="flex justify-center flex-wrap" id="card-type-tab-1" style={{alignItems: 'center', flexDirection: 'column'}} role="tabpanel" aria-labelledby="card-type-tab-item-1">
+  <div className="flex justify-center flex-wrap my-10" id="card-type-tab-1" style={{borderBottom: '2px solid black',alignItems: 'center', flexDirection: 'column'}} role="tabpanel" aria-labelledby="card-type-tab-item-1">
     <p class="text-green-500 dark:text-gray-400 text-8xl">
         {total} 
     </p>
@@ -107,7 +113,8 @@ const Home = () =>{
     <p style={{height: 'fit-content'}}>Total Manual Purchase</p>
   </div>
   
-  <div  id="card-type-tab-2" role="tabpanel" aria-labelledby="card-type-tab-item-2">
+    <hr />    
+  <div  id="card-type-tab-2" role="tabpanel"  style={{borderBottom: '2px solid black', marginBottom: '30px'}} aria-labelledby="card-type-tab-item-2">
     <div className="p-3 flex gap-5">
 
       <select id="manual" style={{border: '2px solid black'}} className="py-3 px-4 pr-9 block w-1/3 border-gray-600 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400">
@@ -147,7 +154,6 @@ const Home = () =>{
     <button type="button" onClick={check} class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800">
       Enter
     </button>
-          
     </div>
    {
     result < 1 && (
@@ -162,20 +168,29 @@ const Home = () =>{
     )
    }
    </div>
-   
+   <hr />
+
+   <button type="button" onClick={handleChangePass} class="w-full py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800">
+      Change Password
+    </button>
   
-     <div className="flex justify-center flex-wrap p-4 mx-auto" id="card-type-tab-3" style={{maxWidth: '400px', minWidth: '300px',alignItems: 'center', flexDirection: 'column'}} role="tabpanel" aria-labelledby="card-type-tab-item-3">
-       <p style={{height: 'fit-content'}}>Change Password</p>
 
-       <p className="text-red-500">{error}</p>
-       <input id="changepass" onChange={() => setError('')} type="password" style={{border: '2px solid black'}} placeholder="Change Password" className=" my-2 py-3 px-4 pr-9 block w-full border-gray-600 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400" />
-       <input id="confirmpass" type="password" style={{border: '2px solid black'}} placeholder="Confirm Password" className="my-2 py-3 px-4 pr-9 block w-full border-gray-600 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400" />
-
-       <button type="button" onClick={changePassword} class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800">
-        Update
-      </button>
-
-     </div>
+    {
+      password && (
+        <div className="flex justify-center flex-wrap p-4 mx-auto" id="card-type-tab-3" style={{maxWidth: '400px', minWidth: '300px',alignItems: 'center', flexDirection: 'column'}} role="tabpanel" aria-labelledby="card-type-tab-item-3">
+          <p style={{height: 'fit-content'}}>Change Password</p>
+   
+          <p className="text-red-500">{error}</p>
+          <input id="changepass" onChange={() => setError('')} type="password" style={{border: '2px solid black'}} placeholder="Change Password" className=" my-2 py-3 px-4 pr-9 block w-full border-gray-600 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400" />
+          <input id="confirmpass" type="password" style={{border: '2px solid black'}} placeholder="Confirm Password" className="my-2 py-3 px-4 pr-9 block w-full border-gray-600 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400" />
+   
+          <button type="button" onClick={changePassword} class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800">
+           Update
+         </button>
+   
+        </div>
+      )
+    }
 
   </div>
    </>
